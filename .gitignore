@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+node_modules/
+dist/
+*.log
+data/
+business_context.*.tmp
+config.json
+business_context.json
+browser-check.png
+check_real_data.py
+TECHNICAL_SPECIFICATION.md
+release/
+*.bak

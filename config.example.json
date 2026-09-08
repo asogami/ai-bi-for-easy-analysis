@@ -1,0 +1,26 @@
+{
+  "config_version": 1,
+  "database": {
+    "type": "sqlserver",
+    "version": "2019",
+    "driver": "ODBC Driver 17 for SQL Server",
+    "host": "localhost",
+    "port": null,
+    "database": "YOUR_DATABASE",
+    "auth_mode": "sql",
+    "username_env": "DB_USERNAME",
+    "password_env": "DB_PASSWORD",
+    "allowed_views": [],
+    "connection_timeout_seconds": 10,
+    "query_timeout_seconds": 30,
+    "max_result_rows": 1000
+  },
+  "ai": {
+    "provider": "gemini",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "model": "gemini-2.5-flash",
+    "api_key_env": "AI_API_KEY",
+    "external_data_policy": "deny"
+  },
+  "business_context_file": "business_context.json"
+}
