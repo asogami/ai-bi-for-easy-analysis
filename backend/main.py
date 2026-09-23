@@ -178,8 +178,11 @@ def refresh_report(report_id: str):
         generation_lock.release()
 
 
-if (ROOT / 'dist' / 'assets').exists():
-    app.mount('/assets', StaticFiles(directory=ROOT / 'dist' / 'assets'), name='assets')
+# Always mount so a rebuild after server start still serves new hashed assets.
+# Directory is created empty if the first build has not run yet.
+_assets = ROOT / 'dist' / 'assets'
+_assets.mkdir(parents=True, exist_ok=True)
+app.mount('/assets', StaticFiles(directory=_assets), name='assets')
 
 
 @app.get('/')

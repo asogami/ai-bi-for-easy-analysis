@@ -43,10 +43,16 @@ def connection():
         host += ',' + str(int(cfg['port']))
     fields = {
         'DRIVER': cfg['driver'], 'SERVER': host, 'DATABASE': cfg['database'],
-        'UID': env.get(cfg['username_env'], ''),
-        'PWD': env.get(cfg['password_env'], ''),
         'APP': 'AI BI metadata prototype',
     }
+    mode = (cfg.get('auth_mode') or 'sql').lower()
+    if mode == 'windows':
+        fields['Trusted_Connection'] = 'yes'
+    elif mode == 'sql':
+        fields['UID'] = env.get(cfg['username_env'], '')
+        fields['PWD'] = env.get(cfg['password_env'], '')
+    else:
+        raise ValueError(f'Unsupported auth_mode: {mode}')
     conn = pyodbc.connect(
         ';'.join(k + '=' + odbc_value(v) for k, v in fields.items()),
         timeout=cfg['connection_timeout_seconds'], autocommit=False,
